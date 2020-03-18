@@ -4,7 +4,7 @@
 */
 axios.get('https://api.github.com/users/edelveiss')
     .then(response => {
-        console.log(response.data);
+        console.log(response);
         entryPoint.append(gitHubCardCreator(response.data));
     })
     .catch(error => {
@@ -31,7 +31,7 @@ axios.get('https://api.github.com/users/edelveiss')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -110,3 +110,23 @@ console.log(entryPoint);
   luishrd
   bigknell
 */
+const followersArray = [
+    'https://api.github.com/users/tetondan',
+    'https://api.github.com/users/dustinmyers',
+    'https://api.github.com/users/justsml',
+    'https://api.github.com/users/luishrd',
+    'https://api.github.com/users/bigknell',
+
+];
+
+followersArray.forEach(link => {
+    axios.get(link)
+        .then(response => {
+            console.log(response);
+            entryPoint.append(gitHubCardCreator(response.data));
+        })
+        .catch(error => {
+            console.log('The data was not returned ', error);
+        })
+
+})
