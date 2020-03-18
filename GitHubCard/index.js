@@ -131,7 +131,7 @@ followersArray.forEach(link => {
 
 })
 
-//---------Stretch Goals---------------
+//-- -- -- -- - Stretch Goals-- -- -- -- -- -- -- -
 
 axios.get('https://api.github.com/users/edelveiss')
     .then(response => {
@@ -141,7 +141,7 @@ axios.get('https://api.github.com/users/edelveiss')
                 console.log(response.data);
                 response.data.forEach(item => {
 
-                    //---------------------
+
                     axios.get('https://api.github.com/users/' + item.login)
                         .then(response => {
 
@@ -150,15 +150,17 @@ axios.get('https://api.github.com/users/edelveiss')
                         .catch(error => {
                             console.log('The data was not returned ', error);
                         })
-                        //--------------------
+
 
                 })
 
             })
+            .catch(error => {
+                console.log('The data was not returned ', error);
+            })
+
 
     })
-
-
 
 .catch(error => {
     console.log('The data was not returned ', error);
