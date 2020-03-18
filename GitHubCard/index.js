@@ -78,7 +78,7 @@ function gitHubCardCreator(gitHubData) {
     location.textContent = `Location: ${gitHubData.location}`;
     gitHubAddress.href = gitHubData.html_url;
     gitHubAddress.target = "_blank";
-    console.log(gitHubAddress);
+
 
     gitHubAddress.textContent = gitHubData.html_url;
     profile.textContent = `Profile: `;
@@ -122,11 +122,44 @@ const followersArray = [
 followersArray.forEach(link => {
     axios.get(link)
         .then(response => {
-            console.log(response);
+            //console.log(response);
             entryPoint.append(gitHubCardCreator(response.data));
         })
         .catch(error => {
             console.log('The data was not returned ', error);
         })
 
+})
+
+//---------Stretch Goals---------------
+
+axios.get('https://api.github.com/users/edelveiss')
+    .then(response => {
+        console.log(response.data.followers_url);
+        axios.get(response.data.followers_url)
+            .then(response => {
+                console.log(response.data);
+                response.data.forEach(item => {
+
+                    //---------------------
+                    axios.get('https://api.github.com/users/' + item.login)
+                        .then(response => {
+
+                            entryPoint.append(gitHubCardCreator(response.data));
+                        })
+                        .catch(error => {
+                            console.log('The data was not returned ', error);
+                        })
+                        //--------------------
+
+                })
+
+            })
+
+    })
+
+
+
+.catch(error => {
+    console.log('The data was not returned ', error);
 })
